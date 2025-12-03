@@ -30,5 +30,5 @@ foreach range [split $data ","] {
     }
 }
 
-puts "Part1 answer: $sum_of_invalid_ids"
+puts "Part2 answer: $sum_of_invalid_ids"
 
