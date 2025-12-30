@@ -11,11 +11,25 @@ set ranges  [lindex $data 0]
 
 # Sort the ranges first by their first value
 set ranges [lsort -dictionary $ranges]
+set nums_in_ranges [list]
+
+foreach range $ranges {
+    puts "Processing range: $range"
+    foreach {min max} [split $range "-"] {
+        puts "   min: $min max: $max"
+        for {set i $min} {$i <= $max} {incr i} {
+            lappend nums_in_ranges $i
+        }
+    }
+}
+ set nums_in_ranges [lsort -unique -integer $nums_in_ranges]
+ puts "Total numbers in ranges: [llength $nums_in_ranges]"
 
 # Compress the list of ranges into mutually exclusive ranges
 # e.g. 1-3,2-4 becomes 1-4
 set compressed_ranges [lindex $ranges 0]
 foreach range [lrange $ranges 1 end] {
+    puts "Processing range: $range"
     lassign [split $range "-"] start stop
 
     set last_range [lindex $compressed_ranges end]
